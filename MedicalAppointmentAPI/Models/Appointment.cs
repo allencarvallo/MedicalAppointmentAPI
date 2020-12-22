@@ -15,7 +15,8 @@ namespace MedicalAppointmentAPI.Models
         [Column(TypeName ="varchar(200)")]
         public string Description { get; set; }
 
-        [Column(TypeName = "varchar(50)")]
+        //[Column(TypeName = "varchar(50)")]
+        [DataType(DataType.DateTime)]
         public string AppointmentTime { get; set; }
 
         [Column(TypeName = "varchar(20)")]
@@ -25,9 +26,9 @@ namespace MedicalAppointmentAPI.Models
 
 
         public int DoctorId { get; set; }
-        public Doctor Doctor { get; set; }
+        //public Doctor Doctor { get; set; }
 
         public int PatientId { get; set; }
-        public Patient Patient { get; set; }
+        //public Patient Patient { get; set; }
     }
 }
