@@ -24,7 +24,10 @@ namespace MedicalAppointmentAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointments()
         {
-            return await _context.Appointments.ToListAsync();
+            return await _context.Appointments
+                .Include(b => b.Doctor)
+                .Include(c => c.Patient)
+                .ToListAsync();
         }
 
         // GET: api/Appointments/5
