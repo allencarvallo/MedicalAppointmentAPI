@@ -18,6 +18,8 @@ namespace MedicalAppointmentAPI
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,6 +30,17 @@ namespace MedicalAppointmentAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // To allow access to API from angular by enabling CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200",
+                                                          "http://www.contoso.com");
+                                  });
+            });
 
             services.AddControllers();
 
@@ -43,7 +56,7 @@ namespace MedicalAppointmentAPI
 
             services.AddDbContext<MedicalAppointmentContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("AppointmentContext")));
-
+         
             //services.AddDbContext<MedicalAppointmentContext>(options =>
             //options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
         }
@@ -60,12 +73,16 @@ namespace MedicalAppointmentAPI
 
             app.UseRouting();
 
+            // To allow access to API from angular
+            app.UseCors(MyAllowSpecificOrigins);
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+            
         }
     }
 }
