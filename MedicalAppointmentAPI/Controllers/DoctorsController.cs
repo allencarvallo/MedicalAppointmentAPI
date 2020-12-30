@@ -9,7 +9,7 @@ using MedicalAppointmentAPI.Models;
 
 namespace MedicalAppointmentAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("MedicalAppointment/[controller]")]
     [ApiController]
     public class DoctorsController : ControllerBase
     {

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Cors;
 
 namespace MedicalAppointmentAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("MedicalAppointment/[controller]")]
     [ApiController]
     public class AppointmentsController : ControllerBase
     {

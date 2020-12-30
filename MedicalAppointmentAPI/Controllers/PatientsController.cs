@@ -9,7 +9,7 @@ using MedicalAppointmentAPI.Models;
 
 namespace MedicalAppointmentAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("MedicalAppointment/[controller]")]
     [ApiController]
     public class PatientsController : ControllerBase
     {
@@ -76,6 +76,16 @@ namespace MedicalAppointmentAPI.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Patient>> PostPatient(Patient patient)
+        {
+            _context.Patients.Add(patient);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetPatient", new { id = patient.PatientId }, patient);
+        }
+
+        [Route("Login")]
+        [HttpPost]
+        public async Task<ActionResult<Patient>> PatientLogin(Patient patient)
         {
             _context.Patients.Add(patient);
             await _context.SaveChangesAsync();
