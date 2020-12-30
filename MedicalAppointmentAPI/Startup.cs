@@ -38,6 +38,8 @@ namespace MedicalAppointmentAPI
                                   builder =>
                                   {
                                       builder.WithOrigins("http://localhost:4200",
+                                                           "http://localhost:4200/add",
+                                                           "http://localhost:4200/patient-signup",
                                                           "http://www.contoso.com");
                                   });
             });
@@ -64,6 +66,12 @@ namespace MedicalAppointmentAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // To allow access to API from angular
+            app.UseCors(Options =>
+                Options.WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -72,9 +80,6 @@ namespace MedicalAppointmentAPI
             }
 
             app.UseRouting();
-
-            // To allow access to API from angular
-            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
