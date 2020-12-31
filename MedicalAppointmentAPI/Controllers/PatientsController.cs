@@ -83,14 +83,23 @@ namespace MedicalAppointmentAPI.Controllers
             return CreatedAtAction("GetPatient", new { id = patient.PatientId }, patient);
         }
 
+        // POST: MedicalAppointment/Patients/Login
         [Route("Login")]
         [HttpPost]
         public async Task<ActionResult<Patient>> PatientLogin(Patient patient)
         {
-            _context.Patients.Add(patient);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPatient", new { id = patient.PatientId }, patient);
+            var thePatient = await _context.Patients.Where(d => d.PatientEmail == patient.PatientEmail).FirstOrDefaultAsync();
+
+            if(thePatient?.PatientPassword == patient.PatientPassword)
+            {
+                return this.Ok(thePatient);
+            }
+            else
+            {
+                return this.NotFound();
+            }
+
         }
 
         // DELETE: api/Patients/5
