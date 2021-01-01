@@ -10,7 +10,7 @@ namespace MedicalAppointmentAPI.Models
     {
         public MedicalAppointmentContext(DbContextOptions<MedicalAppointmentContext> options) : base(options)
         {
-
+            this.Database.Migrate();
         }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Patient> Patients { get; set; }

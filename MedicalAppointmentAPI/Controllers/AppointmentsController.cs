@@ -23,9 +23,11 @@ namespace MedicalAppointmentAPI.Controllers
 
         // GET: api/Appointments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointments()
+        [Route("patient/{patientid}")]
+        public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointments(int patientid)
         {
             return await _context.Appointments
+                .Where(appointment => appointment.PatientId == patientid)
                 .Include(b => b.Doctor)
                 .Include(c => c.Patient)
                 .ToListAsync();
@@ -81,7 +83,11 @@ namespace MedicalAppointmentAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Appointment>> PostAppointment(Appointment appointment)
         {
+            int maxToken = await _context.Appointments.MaxAsync(a => (int?)a.Token) ?? 100;
+            appointment.Token = maxToken;
+
             _context.Appointments.Add(appointment);
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetAppointment", new { id = appointment.AppointmentId }, appointment);

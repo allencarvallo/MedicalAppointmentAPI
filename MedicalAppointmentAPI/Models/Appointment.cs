@@ -19,8 +19,8 @@ namespace MedicalAppointmentAPI.Models
         [DataType(DataType.DateTime)]
         public string AppointmentTime { get; set; }
 
-        [Column(TypeName = "varchar(20)")]
-        public string Token { get; set; }
+        [Column(TypeName = "integer")]
+        public int Token { get; set; }
 
         public bool Status { get; set; }
 
