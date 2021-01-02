@@ -57,7 +57,11 @@ namespace MedicalAppointmentAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(appointment).State = EntityState.Modified;
+            //_context.Entry(appointment).State = EntityState.Modified;
+            var appointmentUpdate = _context.Appointments.First(a => a.AppointmentId == id);
+            appointmentUpdate.Description = appointment.Description;
+            appointmentUpdate.DoctorId = appointment.DoctorId;
+            appointmentUpdate.AppointmentTime = appointment.AppointmentTime;
 
             try
             {
@@ -84,7 +88,7 @@ namespace MedicalAppointmentAPI.Controllers
         public async Task<ActionResult<Appointment>> PostAppointment(Appointment appointment)
         {
             int maxToken = await _context.Appointments.MaxAsync(a => (int?)a.Token) ?? 100;
-            appointment.Token = maxToken;
+            appointment.Token = maxToken + 1;
 
             _context.Appointments.Add(appointment);
 
