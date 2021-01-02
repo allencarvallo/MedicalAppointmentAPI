@@ -26,7 +26,7 @@ namespace MedicalAppointmentAPI.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<string>("AppointmentTime")
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .HasColumnType("varchar(200)");
@@ -40,8 +40,8 @@ namespace MedicalAppointmentAPI.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Token")
-                        .HasColumnType("varchar(20)");
+                    b.Property<int>("Token")
+                        .HasColumnType("integer");
 
                     b.HasKey("AppointmentId");
 
@@ -97,13 +97,13 @@ namespace MedicalAppointmentAPI.Migrations
             modelBuilder.Entity("MedicalAppointmentAPI.Models.Appointment", b =>
                 {
                     b.HasOne("MedicalAppointmentAPI.Models.Doctor", "Doctor")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MedicalAppointmentAPI.Models.Patient", "Patient")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -111,16 +111,6 @@ namespace MedicalAppointmentAPI.Migrations
                     b.Navigation("Doctor");
 
                     b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("MedicalAppointmentAPI.Models.Doctor", b =>
-                {
-                    b.Navigation("Appointments");
-                });
-
-            modelBuilder.Entity("MedicalAppointmentAPI.Models.Patient", b =>
-                {
-                    b.Navigation("Appointments");
                 });
 #pragma warning restore 612, 618
         }

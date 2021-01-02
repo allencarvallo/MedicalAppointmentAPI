@@ -44,8 +44,8 @@ namespace MedicalAppointmentAPI.Migrations
                     AppointmentId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Description = table.Column<string>(type: "varchar(200)", nullable: true),
-                    AppointmentTime = table.Column<string>(type: "varchar(50)", nullable: true),
-                    Token = table.Column<string>(type: "varchar(20)", nullable: true),
+                    AppointmentTime = table.Column<string>(type: "text", nullable: true),
+                    Token = table.Column<int>(type: "integer", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
                     DoctorId = table.Column<int>(type: "integer", nullable: false),
                     PatientId = table.Column<int>(type: "integer", nullable: false)
