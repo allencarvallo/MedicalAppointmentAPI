@@ -37,7 +37,10 @@ namespace MedicalAppointmentAPI
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost:4200");
+                                      builder.WithOrigins("http://localhost:4200",
+                                                           "http://localhost:4200/add",
+                                                           "http://localhost:4200/patient-signup",
+                                                          "http://www.contoso.com");
                                   });
             });
 
