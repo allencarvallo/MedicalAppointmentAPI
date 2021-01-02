@@ -10,13 +10,10 @@ namespace MedicalAppointmentAPI.Models
     {
         public MedicalAppointmentContext(DbContextOptions<MedicalAppointmentContext> options) : base(options)
         {
-            this.Database.Migrate();
         }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql("Host=localhost;Database=MedicalAppointmentDB;Username=postgres;Password=carvallo");
     }
 }
