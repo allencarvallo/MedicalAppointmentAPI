@@ -31,16 +31,6 @@ namespace MedicalAppointmentAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
-            // To allow access to API from angular by enabling CORS
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("http://localhost:4200");
-                                  });
-            });
-
             services.AddControllers();
 
             services.AddControllers().AddNewtonsoftJson(options =>
